@@ -1,39 +1,14 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-import moment from "moment";
+import useFetch from "../customize/fetch";
 
 const Covid = () => {
-    const [dataCovid, setDataCovid] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-
-    // componentDidMount
-    useEffect(() => {
-        try {
-            setTimeout(() => {
-                async function fetchData() {
-                    let res = await axios.get(
-                        "https://api.covid19api.com/country/vietnam?from=2021-10-01T00%3A00%3A00Z&to=2021-10-20T00%3A00%3A00Z"
-                    );
-                    let data = res && res.data ? res.data : [];
-
-                    // convert Date to DD/MM/YYYY
-                    if (data && data.length > 0) {
-                        data.map((item) => {
-                            item.Date = moment(item.Date).format("DD/MM/YYYY");
-                            return item;
-                        });
-                    }
-                    data.reverse();
-
-                    setDataCovid(data);
-                    setIsLoading(false);
-                }
-                fetchData();
-            }, 2000);
-        } catch (error) {
-            console.log(error.message);
-        }
-    }, []);
+    const {
+        data: dataCovid,
+        isLoading,
+        isError,
+    } = useFetch(
+        "https://api.covid19api.com/country/vietnam?from=2021-10-01T00%3A00%3A00Z&to=2021-10-20T00%3A00%3A00Z"
+    );
 
     return (
         <>
@@ -56,7 +31,17 @@ const Covid = () => {
                             </td>
                         </tr>
                     )}
-                    {isLoading === false &&
+
+                    {isError === true && (
+                        <tr>
+                            <td colSpan={5} style={{ textAlign: "center" }}>
+                                Something is wrong!
+                            </td>
+                        </tr>
+                    )}
+
+                    {isError === false &&
+                        isLoading === false &&
                         dataCovid &&
                         dataCovid.length > 0 &&
                         dataCovid.map((item) => {
