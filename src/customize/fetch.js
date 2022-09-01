@@ -20,7 +20,7 @@ const useFetch = (url) => {
                         item.Date = moment(item.Date).format("DD/MM/YYYY");
                         return item;
                     });
-                    data.reverse();
+                    // data.reverse();
                 }
 
                 setData(data);
