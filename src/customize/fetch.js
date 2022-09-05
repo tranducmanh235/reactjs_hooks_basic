@@ -27,12 +27,15 @@ const useFetch = (url) => {
                 setIsLoading(false);
                 setIsError(false);
             }
-            fetchData();
+
+            setTimeout(() => {
+                fetchData();
+            }, 3000);
         } catch (e) {
             setIsError(true);
             setIsLoading(false);
         }
-    }, []);
+    }, [url]);
 
     return {
         data,

@@ -1,9 +1,6 @@
-/* Add a black background color to the top navigation */
 .topnav {
-    margin-top: 0;
-    background-color: rgb(128, 127, 127);
     overflow: hidden;
-    width: 100%;
+    background-color: #747474;
 
     a {
         float: left;
@@ -13,11 +10,13 @@
         text-decoration: none;
         font-size: 17px;
     }
+
     a:hover {
         background-color: #ddd;
         color: black;
     }
-    a.active {
+
+    a.active1 {
         background-color: #04aa6d;
         color: white;
     }
